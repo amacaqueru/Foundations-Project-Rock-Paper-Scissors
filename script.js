@@ -12,14 +12,14 @@ function getComputerChoice() {
     
     if (choice == 0) {
         roca++;
-        return("Rock")
+        return("rock")
     }else if (choice == 1) {
         papel++;
-        return("Paper")
+        return("paper")
     }
     else {
         tijeras++;
-        return("Scissors")
+        return("scissors")
     }
 
 
@@ -27,34 +27,139 @@ function getComputerChoice() {
 }
 
 function getHumanChoice() {
-    let choice = prompt("Enter your choice: Rock, Paper or Scissors");
-    if (choice == "Rock") {
-        roca++;
-        return("Rock")
-    }else if (choice == "Paper") {
-        papel++;
-        return("Paper")
-    }
-    else if (choice == "Scissors") {
-        tijeras++;
-        return("Scissors")
-    }
-    else {
-        console.log("Invalid choice. Please enter Rock, Paper or Scissors.");
-        return getHumanChoice();
-    }
+    
+let choice = prompt("Enter your choice: Rock, Paper or Scissors").toLowerCase();
+
+    while(true){
+        // let choice = prompt("Enter your choice: Rock, Paper or Scissors").toLowerCase();
+        
+
+        if (choice == "rock") {
+            return("rock")
+
+        }else if (choice == "paper") {
+            
+            return("paper")
+            break;
+        }
+        else if (choice == "scissors") {
+            
+            return("scissors")
+            break;
+        }
+        else {
+            console.log("Invalid choice. Please enter Rock, Paper or Scissors.");
+            choice = prompt("Invalid choice. Please enter Rock, Paper or Scissors.").toLowerCase();
+            // continue;
+        }
+        
+}
 }
 
 
 
-let computerChoice = "";
 
-for (let i = 0; i < 1000; i++) {
-    computerChoice = getComputerChoice();
-    console.log(computerChoice);
+// let humanScore = 0;
+// let computerScore = 0;
+
+function playRound(humanChoice , computerChoice ) {
+    console.log(`Human Choice: ${humanChoice}`);
+    console.log(`Computer choice: ${computerChoice}`); 
+
+    if (humanChoice == "rock") {
+        if(computerChoice == "rock"){
+            console.log("Empates");
+            return 0;
+
+        }else if(computerChoice == "paper"){
+            return 2;
+
+            
+        }
+        else{
+            return 1;
+            
+        }
+
+        
+    }
+
+
+    else if (humanChoice == "paper") {
+        if(computerChoice == "rock"){
+            return 1;
+
+            
+        }else if(computerChoice == "paper"){
+            console.log("Empates")
+            return 0;
+
+            
+        }
+        else{
+            return 2;
+
+            
+        }
+
+        
+    }
+    else if (humanChoice == "scissors") {
+        if(computerChoice == "rock"){
+            return 2;
+
+            
+        }else if(computerChoice == "paper"){
+            return 1;
+
+            
+        }
+        else{
+            return 0;
+
+            
+        }
+
+        
+    }
+
+}
+
+function playGame(){
+    let humanScore = 0;
+    let computerScore = 0;
+    let continuar = true;
+
+    let partida = 0;
+
+    while(continuar){
+        partida++;
+        console.log(`Partida: ${partida}`);
+        let result = playRound(getHumanChoice(), getComputerChoice());
+        // playRound(getHumanChoice(), getComputerChoice());
+        if (result == 1) {
+            humanScore++;
+        }
+        else if (result == 2){
+            computerScore++;
+        }
+
+        if (humanScore >= 3){
+            console.log ("Humano gana");
+            console.log("Puntuacion final: ")
+            console.log(`Humano: ${humanScore}, Computadora: ${computerScore}`)
+            continuar = false;
+        }
+        else if (computerScore >= 3){
+            console.log("Computadora gana");
+            console.log("Puntuacion final: ")
+            console.log(`Humano: ${humanScore}, Computadora: ${computerScore}`)
+            continuar = false;
+        }
+    }
+    
 }
 
 
 
-
-
+playGame();
